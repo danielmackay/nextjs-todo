@@ -31,7 +31,7 @@ export default function Layout({ children }: any) {
         <CssBaseline />
         <AppBarSimple />
         {/* <AppBar darkMode={darkMode} toggleDarkMode={handleToggleDarkMode} /> */}
-        <Container maxWidth="lg" className='my-16 pt-16'>
+        <Container maxWidth="md" sx={{my: 16}}>
           <main>{children}</main>
         </Container>
         <Footer />
