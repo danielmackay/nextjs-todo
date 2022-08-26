@@ -28,15 +28,17 @@ const TodoList = () => {
 
   return (
     <>
-      {todos.map(todo =>
-        <Paper key={todo.id} sx={{ p: 1, mt: 1, display: 'flex', flexGrow: 1, gap: 2 }}>
-          <Checkbox sx={{ pt: 1 }} checked={todo.isComplete} onChange={() => onCompleteTodo(todo)}></Checkbox>
-          <Typography sx={{ flexGrow: 1, pt: 1 }}>{todo.title}</Typography>
-          <IconButton aria-label="delete" sx={{ color: 'error.main' }} onClick={() => onDeleteTodo(todo)}>
-            <DeleteIcon />
-          </IconButton>
-        </Paper>
-      )}
+      {todos.length == 0
+        ? <Typography variant="body1" sx={{mt: 1}}>No Todos</Typography>
+        : todos.map(todo =>
+          <Paper key={todo.id} sx={{ p: 1, mt: 1, display: 'flex', flexGrow: 1, gap: 2 }}>
+            <Checkbox sx={{ pt: 1 }} checked={todo.isComplete} onChange={() => onCompleteTodo(todo)}></Checkbox>
+            <Typography sx={{ flexGrow: 1, pt: 1 }}>{todo.title}</Typography>
+            <IconButton aria-label="delete" sx={{ color: 'error.main' }} onClick={() => onDeleteTodo(todo)}>
+              <DeleteIcon />
+            </IconButton>
+          </Paper>
+        )}
     </>
   )
 }
