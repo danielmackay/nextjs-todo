@@ -28,7 +28,7 @@ const TodoAdd = (props: TodoProps) => {
             <TextField label="Add your todo" variant="standard" fullWidth={true} value={todoText} onChange={(e) => setTodoText(e.target.value)}></TextField>
           </Grid>
           <Grid item sm={2} xs={12}>
-            <Button color="primary" variant="contained" fullWidth={true} sx={{mt: 2}} onClick={() => onAdd()}>Add</Button>
+            <Button color="primary" variant="contained" fullWidth={true} sx={{mt: 2}} onClick={() => onAdd()} disabled={!todoText}>Add</Button>
           </Grid>
         </Grid>
     </form>
