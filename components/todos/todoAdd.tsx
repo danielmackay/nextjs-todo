@@ -22,14 +22,13 @@ const TodoAdd = (props: TodoProps) => {
     setTodoText("");
   }
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
       onAdd();
     }
   }
 
   return (
-    // <form>
       <Grid container spacing={2} sx={{ mb: 4 }}>
         <Grid item sm={10} xs={12}>
           <TextField label="Add your todo" variant="standard" fullWidth={true} value={todoText} onChange={(e) => setTodoText(e.target.value)} onKeyDown={(e) => onKeyDown(e)}></TextField>
@@ -38,7 +37,6 @@ const TodoAdd = (props: TodoProps) => {
           <Button color="primary" variant="contained" fullWidth={true} sx={{ mt: 2 }} onClick={() => onAdd()} disabled={!todoText}>Add</Button>
         </Grid>
       </Grid>
-    // </form>
   );
 }
 
