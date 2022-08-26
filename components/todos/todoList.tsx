@@ -3,6 +3,7 @@ import { GetTodos } from "../../services/todoService";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
 import { TodoItem } from "../../models/todoItem";
+import TodoAdd from "./todoAdd";
 
 const TodoList = () => {
   const [todos, setTodos] = useState(GetTodos())
@@ -26,8 +27,14 @@ const TodoList = () => {
     setTodos(updatedTodos)
   }
 
+  const onAddTodo = (added: TodoItem) => {
+    // todos.push(added);
+    setTodos(state => [...state, added]);
+  }
+
   return (
     <>
+      <TodoAdd onAddTodo={onAddTodo}></TodoAdd>
       {todos.length == 0
         ? <Typography variant="body1" sx={{mt: 1}}>No Todos</Typography>
         : todos.map(todo =>
