@@ -39,7 +39,7 @@ const AppBarSimple = () => {
           <Toolbar>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {links.map(l =>
-                <Button key="Home" sx={{ color: '#fff', mx: 2 }}>
+                <Button key={l.text} sx={{ color: '#fff', mx: 2 }}>
                   <Link href={l.url}><a>{l.text}</a></Link>
                 </Button>
               )}

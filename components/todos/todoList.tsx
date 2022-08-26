@@ -8,12 +8,22 @@ const TodoList = () => {
   const [todos, setTodos] = useState(GetTodos())
 
   const onCompleteTodo = (updated: TodoItem) => {
-    let todo = todos.find(t => t.id === updated.id);
-    if (todo) {
-      todo.isComplete = !updated.isComplete;
-    }
+    let updatedTodos = todos.map((todo) => {
+      if (todo.id === updated.id) {
+        return {
+          ...todo,
+          isComplete: !todo.isComplete,
+        }
+      }
+      return todo
+    })
 
-    setTodos(todos);
+    setTodos(updatedTodos);
+  }
+
+  const onDeleteTodo = (deleted: TodoItem) => {
+    let updatedTodos = todos.filter(t => t.id !== deleted.id);
+    setTodos(updatedTodos)
   }
 
   return (
@@ -22,7 +32,7 @@ const TodoList = () => {
         <Paper key={todo.id} sx={{ p: 1, mt: 1, display: 'flex', flexGrow: 1, gap: 2 }}>
           <Checkbox sx={{ pt: 1 }} checked={todo.isComplete} onChange={() => onCompleteTodo(todo)}></Checkbox>
           <Typography sx={{ flexGrow: 1, pt: 1 }}>{todo.title}</Typography>
-          <IconButton aria-label="delete" sx={{color: 'error.main'}}>
+          <IconButton aria-label="delete" sx={{ color: 'error.main' }} onClick={() => onDeleteTodo(todo)}>
             <DeleteIcon />
           </IconButton>
         </Paper>
