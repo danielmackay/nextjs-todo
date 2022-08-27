@@ -2,20 +2,21 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
-import { TodoItem } from '../../models/todoItem';
+import { TodoItemDto } from '../../apiClient';
+//import { TodoItem } from '../../models/todoItem';
 
 interface TodoProps {
-  onAddTodo: (added: TodoItem) => void
+  onAddTodo: (added: TodoItemDto) => void
 }
 
 const TodoAdd = (props: TodoProps) => {
   const [todoText, setTodoText] = useState("");
 
   const onAdd = () => {
-    let todo: TodoItem = {
-      id: 999,
+    let todo: TodoItemDto = {
+      todoItemId: 999,
       title: todoText,
-      isComplete: false,
+      done: false,
     };
 
     props.onAddTodo(todo);

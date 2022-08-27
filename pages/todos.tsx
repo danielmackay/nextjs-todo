@@ -2,22 +2,30 @@ import { Typography } from '@mui/material'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { TodoItemDto, TodoItemsApi } from '../apiClient'
 import TodoAdd from '../components/todos/todoAdd'
 import TodoClear from '../components/todos/todoClear'
 import TodoList from '../components/todos/todoList'
-import { TodoItem } from '../models/todoItem'
-import { GetTodos } from '../services/todoService'
+import { Api } from '../services/apiService'
 
 const Todos: NextPage = () => {
-  const [todos, setTodos] = useState(GetTodos())
+  const [todos, setTodos] = useState<TodoItemDto[]>([])
 
-  const onCompleteTodo = (updated: TodoItem) => {
+  useEffect(() => {
+    let api = new Api();
+    api.todoItems().apiTodoItemsGet().then(res => {
+      if (res.data.items)
+        setTodos(res.data.items);
+    });
+  }, []);
+
+  const onCompleteTodo = (updated: TodoItemDto) => {
     let updatedTodos = todos.map((todo) => {
-      if (todo.id === updated.id) {
+      if (todo.todoItemId === updated.todoItemId) {
         return {
           ...todo,
-          isComplete: !todo.isComplete,
+          isComplete: !todo.done,
         }
       }
       return todo
@@ -26,25 +34,25 @@ const Todos: NextPage = () => {
     setTodos(updatedTodos);
   }
 
-  const onDeleteTodo = (deleted: TodoItem) => {
-    let updatedTodos = todos.filter(t => t.id !== deleted.id);
+  const onDeleteTodo = (deleted: TodoItemDto) => {
+    let updatedTodos = todos.filter(t => t.todoItemId !== deleted.todoItemId);
     setTodos(updatedTodos)
   }
 
-  const onAddTodo = (added: TodoItem) => {
+  const onAddTodo = (added: TodoItemDto) => {
     setTodos(state => [...state, added]);
   }
 
-  const onClearTodos = () =>{
+  const onClearTodos = () => {
     setTodos([]);
   }
 
   return (
     <>
-       <Head>
-         <title>Todos</title>
-         <link rel="icon" href="/favicon.ico" />
-       </Head>
+      <Head>
+        <title>Todos</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
       <Typography variant='h2'>Todo List</Typography>
       <TodoAdd onAddTodo={onAddTodo}></TodoAdd>

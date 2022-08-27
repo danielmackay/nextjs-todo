@@ -1,24 +1,26 @@
-import { TodoItem } from "../models/todoItem"
+//import { TodoItem } from "../models/todoItem"
 
-let todos: TodoItem[];
+import { TodoItemDto } from "../apiClient";
+
+let todos: TodoItemDto[];
 todos = [
   {
-    id: 1,
+    todoItemId: 1,
     title: 'item 1',
-    isComplete: false,
-    notes: 'some note'
+    done: false,
+    note: 'some note'
   },
   {
-    id: 2,
+    todoItemId: 2,
     title: 'item 2',
-    isComplete: false,
+    done: false,
     notes: 'some note'
   },
   {
-    id: 3,
+    todoItemId: 3,
     title: 'item 3',
-    isComplete: false,
-    notes: 'some note'
+    done: false,
+    note: 'some note'
   }
 ]
 
