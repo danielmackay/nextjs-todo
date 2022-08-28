@@ -7,8 +7,6 @@ import { Api } from '../../services/apiService';
 
 const NoTodoItems = () => <Typography variant="body1" sx={{ mt: 1 }}>No Todos</Typography>;
 
-//const Loading = () => <Typography variant="body1" sx={{ mt: 1 }}>Loading...</Typography>;
-
 const Loading = () => <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
 
 const TodoList = () => {
@@ -19,27 +17,19 @@ const TodoList = () => {
     if (!deleted || !deleted.todoItemId)
       return;
 
-    api.todoItems().apiTodoItemsIdDelete(deleted.todoItemId).then(res => {
-      mutateTodoItems();
-    })
+    api.todoItems().apiTodoItemsTodoItemIdDelete(deleted.todoItemId)
+      .then(res => mutateTodoItems());
   }
 
   const onCompleteTodo = (updated: TodoItemDto) => {
-    if (!todoItems)
-      return;
+    if (!updated?.todoItemId)
+        return;
 
-    let updatedTodos = todoItems.map(todo => {
-      if (todo.todoItemId === updated.todoItemId) {
-        return {
-          ...todo,
-          done: !todo.done,
-        }
-      }
-      return todo;
-    })
-
-    //setTodos(updatedTodos);
+    api.todoItems().apiTodoItemsTodoItemIdPut(updated.todoItemId, { done: !updated.done })
+      .then(res => mutateTodoItems());
   }
+
+  const getTextDecoration = (todo:TodoItemDto) => todo.done ? 'line-through' : '';
 
   if (isError) {
     return (
@@ -60,7 +50,7 @@ const TodoList = () => {
         todoItems.map(todo =>
           <Paper key={todo.todoItemId} sx={{ p: 1, mt: 1, display: 'flex', flexGrow: 1, gap: 2 }}>
             <Checkbox sx={{ pt: 1 }} checked={todo.done} onChange={() => onCompleteTodo(todo)}></Checkbox>
-            <Typography sx={{ flexGrow: 1, pt: 1 }}>{todo.title}</Typography>
+            <Typography sx={{ flexGrow: 1, pt: 1,  textDecoration: getTextDecoration(todo)}}>{todo.title}</Typography>
             <IconButton aria-label="delete" sx={{ color: 'error.main' }} onClick={() => onDeleteTodo(todo)}>
               <DeleteIcon />
             </IconButton>
