@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 import Footer from './footer';
-import AppBarSimple from './AppBarSimple';
+import AppBarSimple from './appBarSimple';
 import React, { useState } from 'react';
 //import AppBar from './components/AppBar';
 import deepPurple from '@mui/material/colors/deepPurple';
