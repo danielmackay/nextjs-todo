@@ -57,7 +57,15 @@ const Todos: NextPage = () => {
   }
 
   const onClearTodos = () => {
-    setTodos([]);
+    let promises:Promise<any>[] = [];
+    todos.forEach(t => {
+      if (t.todoItemId){
+        let promise = api.todoItems().apiTodoItemsIdDelete(t.todoItemId);
+        promises.push(promise);
+      }
+    });
+
+    Promise.all(promises).then(() => refreshTodos());
   }
 
   return (
