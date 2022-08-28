@@ -21,11 +21,12 @@ const Todos: NextPage = () => {
   }, []);
 
   const onCompleteTodo = (updated: TodoItemDto) => {
+    debugger;
     let updatedTodos = todos.map((todo) => {
       if (todo.todoItemId === updated.todoItemId) {
         return {
           ...todo,
-          isComplete: !todo.done,
+          done: !todo.done,
         }
       }
       return todo
