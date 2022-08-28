@@ -3,23 +3,16 @@ import Grid from '@mui/material/Grid';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { TodoItemDto } from '../../apiClient';
-//import { TodoItem } from '../../models/todoItem';
 
 interface TodoProps {
-  onAddTodo: (added: TodoItemDto) => void
+  onAddTodo: (title: string) => void
 }
 
 const TodoAdd = (props: TodoProps) => {
   const [todoText, setTodoText] = useState("");
 
   const onAdd = () => {
-    let todo: TodoItemDto = {
-      todoItemId: 999,
-      title: todoText,
-      done: false,
-    };
-
-    props.onAddTodo(todo);
+    props.onAddTodo(todoText);
     setTodoText("");
   }
 

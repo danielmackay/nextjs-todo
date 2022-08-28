@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { TodoItemDto, TodoItemsApi } from '../apiClient'
+import { CreateTodoItemCommand, TodoItemDto, TodoItemsApi } from '../apiClient'
 import TodoAdd from '../components/todos/todoAdd'
 import TodoClear from '../components/todos/todoClear'
 import TodoList from '../components/todos/todoList'
@@ -11,17 +11,20 @@ import { Api } from '../services/apiService'
 
 const Todos: NextPage = () => {
   const [todos, setTodos] = useState<TodoItemDto[]>([])
+  const api = new Api();
 
   useEffect(() => {
-    let api = new Api();
+    refreshTodos();
+  }, []);
+
+  const refreshTodos = () => {
     api.todoItems().apiTodoItemsGet().then(res => {
       if (res.data.items)
         setTodos(res.data.items);
     });
-  }, []);
+  };
 
   const onCompleteTodo = (updated: TodoItemDto) => {
-    debugger;
     let updatedTodos = todos.map((todo) => {
       if (todo.todoItemId === updated.todoItemId) {
         return {
@@ -36,12 +39,21 @@ const Todos: NextPage = () => {
   }
 
   const onDeleteTodo = (deleted: TodoItemDto) => {
-    let updatedTodos = todos.filter(t => t.todoItemId !== deleted.todoItemId);
-    setTodos(updatedTodos)
+    if (!deleted.todoItemId)
+      return;
+
+    api.todoItems().apiTodoItemsIdDelete(deleted.todoItemId).then(res => {
+      refreshTodos();
+    })
   }
 
-  const onAddTodo = (added: TodoItemDto) => {
-    setTodos(state => [...state, added]);
+  const onAddTodo = (title: string) => {
+    let cmd: CreateTodoItemCommand = {
+      title: title
+    }
+    api.todoItems().apiTodoItemsPost(cmd).then(res => {
+      refreshTodos();
+    })
   }
 
   const onClearTodos = () => {
