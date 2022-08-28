@@ -7,25 +7,19 @@ import TodoAdd from '../components/todos/todoAdd'
 import TodoClear from '../components/todos/todoClear'
 import TodoList from '../components/todos/todoList'
 import { Api } from '../services/apiService'
-import Notification, { NotificationProps } from '../components/notification'
+import useSWR, { useSWRConfig } from 'swr'
 
 const Todos: NextPage = () => {
   const [todos, setTodos] = useState<TodoItemDto[]>([]);
   const [message, setMessage] = useState('');
+  const { mutate } = useSWRConfig()
   const api = new Api();
-
-  useEffect(() => {
-    refreshTodos();
-  }, []);
 
   const refreshTodos = () => {
     api.todoItems().apiTodoItemsGet()
       .then(res => {
         if (res.data.items)
           setTodos(res.data.items);
-      })
-      .catch(res => {
-        setMessage('failed to get todos');
       });
   };
 
@@ -59,9 +53,7 @@ const Todos: NextPage = () => {
     api.todoItems().apiTodoItemsPost(cmd)
       .then(res => {
         refreshTodos();
-      }).catch(res => {
-        //setNotification({ message: 'failed to add todo', open: true });
-      })
+      });
   }
 
   const onClearTodos = () => {
@@ -85,9 +77,12 @@ const Todos: NextPage = () => {
 
       <Typography variant='h2'>Todo List</Typography>
       <TodoAdd onAddTodo={onAddTodo}></TodoAdd>
-      <TodoList todos={todos} onCompleteTodo={onCompleteTodo} onDeleteTodo={onDeleteTodo} />
+
+      <TodoList onCompleteTodo={onCompleteTodo} onDeleteTodo={onDeleteTodo} />
+      {/* <TodoList onCompleteTodo={onCompleteTodo} onDeleteTodo={onDeleteTodo} />
+      <TodoList onCompleteTodo={onCompleteTodo} onDeleteTodo={onDeleteTodo} /> */}
+
       <TodoClear onClearTodos={onClearTodos} />
-      <Notification message={message} />
     </>
   )
 }
