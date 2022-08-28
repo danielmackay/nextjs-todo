@@ -15,7 +15,7 @@ const TodoClear = () => {
 
     todoItems.forEach(t => {
       if (t.todoItemId) {
-        let promise = api.todoItems().apiTodoItemsIdDelete(t.todoItemId);
+        let promise = api.todoItems().apiTodoItemsTodoItemIdDelete(t.todoItemId);
         promises.push(promise);
       }
     });
