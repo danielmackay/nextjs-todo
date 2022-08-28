@@ -1,13 +1,31 @@
 import { Button } from "@mui/material";
+import todos from "../../pages/todos";
+import { useTodoItems, mutateTodoItems } from "../../services/swrService";
+import {Api} from "../../services/apiService";
 
-interface TodoClearProps{
-  onClearTodos: () => void
-}
+const TodoClear = () => {
+  const { todoItems } = useTodoItems()
+  const api = new Api();
 
-const TodoClear = (props: TodoClearProps) => {
+  const onClearTodos = () => {
+    if (!todoItems)
+      return;
+
+    let promises: Promise<any>[] = [];
+
+    todoItems.forEach(t => {
+      if (t.todoItemId) {
+        let promise = api.todoItems().apiTodoItemsIdDelete(t.todoItemId);
+        promises.push(promise);
+      }
+    });
+
+    Promise.all(promises).then(() => mutateTodoItems());
+  }
+
   return (
     <>
-      <Button color="error" variant="contained" onClick={() => props.onClearTodos()} sx={{mt: 4}}>Clear</Button>
+      <Button color="error" variant="contained" onClick={() => onClearTodos()} sx={{mt: 4}}>Clear</Button>
     </>
   );
 }

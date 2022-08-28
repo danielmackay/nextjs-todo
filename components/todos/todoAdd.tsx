@@ -2,23 +2,29 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
-import { TodoItemDto } from '../../apiClient';
+import { mutateTodoItems } from '../../services/swrService';
+import { Api } from '../../services/apiService';
+import { CreateTodoItemCommand } from '../../apiClient';
 
-interface TodoProps {
-  onAddTodo: (title: string) => void
-}
-
-const TodoAdd = (props: TodoProps) => {
+const TodoAdd = () => {
   const [todoText, setTodoText] = useState("");
+  const api = new Api();
 
-  const onAdd = () => {
-    props.onAddTodo(todoText);
-    setTodoText("");
+  const onAddTodo = () => {
+    let cmd: CreateTodoItemCommand = {
+      title: todoText
+    }
+
+    api.todoItems().apiTodoItemsPost(cmd)
+      .then(res => {
+        setTodoText("");
+        mutateTodoItems();
+      });
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
-      onAdd();
+      onAddTodo();
     }
   }
 
@@ -28,7 +34,7 @@ const TodoAdd = (props: TodoProps) => {
           <TextField label="Add your todo" variant="standard" fullWidth={true} value={todoText} onChange={(e) => setTodoText(e.target.value)} onKeyDown={(e) => onKeyDown(e)}></TextField>
         </Grid>
         <Grid item sm={2} xs={12}>
-          <Button color="primary" variant="contained" fullWidth={true} sx={{ mt: 2 }} onClick={() => onAdd()} disabled={!todoText}>Add</Button>
+          <Button color="primary" variant="contained" fullWidth={true} sx={{ mt: 2 }} onClick={() => onAddTodo()} disabled={!todoText}>Add</Button>
         </Grid>
       </Grid>
   );

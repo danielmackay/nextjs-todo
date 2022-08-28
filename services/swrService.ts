@@ -1,15 +1,22 @@
-import useSWR from "swr";
+import useSWR, { mutate, useSWRConfig } from "swr";
 import { Api } from "./apiService";
 
+const todoApiUrl: string = '/api/todo-items';
+const api = new Api();
+//const { mutate } = useSWRConfig()
+
 export const useTodoItems = () => {
-  const api = new Api();
   const fetcher = () => api.todoItems().apiTodoItemsGet().then(res => res.data)
 
-  const { data, error } = useSWR('/api/todo-items', fetcher)
+  const { data, error } = useSWR(todoApiUrl, fetcher)
 
   return {
     todoItems: data?.items,
     isLoading: !error && !data,
     isError: error
   }
+}
+
+export const mutateTodoItems = () => {
+  mutate(todoApiUrl);
 }
