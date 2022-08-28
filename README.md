@@ -10,10 +10,9 @@ First, run the development server:
 yarn dev
 ```
 
-### Dependencies
+## Dependencies
 
 Backend API can be found on github at: [dotnet-todo-api](https://github.com/danielmackay/dotnet-todo-api)
-
 
 ## Generating Api Client
 

@@ -14,21 +14,17 @@ interface NavLink {
 
 let links: NavLink[] = [
   {
-    text: 'Home',
+    text: 'Todos',
     url: '/'
   },
   {
-    text: 'Todos',
-    url: '/todos'
+    text: 'Lists',
+    url: '/lists'
   },
-  {
-    text: 'Categories',
-    url: '/categories'
-  },
-  {
-    text: 'About',
-    url: '/about'
-  }
+  // {
+  //   text: 'About',
+  //   url: '/about'
+  // }
 ]
 
 const AppBarSimple = () => {

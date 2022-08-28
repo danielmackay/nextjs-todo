@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import todos from "../../pages/todos";
+import todos from "../../pages";
 import { useTodoItems, mutateTodoItems } from "../../services/swrService";
 import {Api} from "../../services/apiService";
 
