@@ -15,10 +15,23 @@ export default function Layout({ children }: any) {
   const [darkMode, setDarkMode] = useState(true);
 
   const theme = createTheme({
-    palette: {
-      //primary: deepPurple,
+    palette: {      
+      primary: {
+        main: '#776be7'
+      },
+      background: {
+        default: '#32333d',
+        paper: '#373740'
+      },
+      text: {
+        primary: '#ffffffb2'
+      },
+      error: {
+        main: '#f64e62'
+      },
       mode: darkMode ? 'dark' : 'light'
-    }
+    },
+
   });
 
   const handleToggleDarkMode = (darkModeValue: boolean) => {

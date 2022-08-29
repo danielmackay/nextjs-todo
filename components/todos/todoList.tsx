@@ -48,7 +48,7 @@ const TodoList = () => {
       {todoItems && todoItems.length === 0 && <NoTodoItems />}
       {todoItems && todoItems.length > 0 &&
         todoItems.map(todo =>
-          <Paper key={todo.todoItemId} sx={{ p: 1, mt: 1, display: 'flex', flexGrow: 1, gap: 2 }}>
+          <Paper key={todo.todoItemId} sx={{ p: 1, mt: 1, display: 'flex', flexGrow: 1, gap: 2, backgroundColor: '#373740' }} elevation={1}>
             <Checkbox sx={{ pt: 1 }} checked={todo.done} onChange={() => onCompleteTodo(todo)}></Checkbox>
             <Typography sx={{ flexGrow: 1, pt: 1,  textDecoration: getTextDecoration(todo)}}>{todo.title}</Typography>
             <IconButton aria-label="delete" sx={{ color: 'error.main' }} onClick={() => onDeleteTodo(todo)}>

@@ -30,7 +30,7 @@ let links: NavLink[] = [
 const AppBarSimple = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" elevation={0} sx={{backgroundColor: '#27272f'}}>
         <Container maxWidth="md">
           <Toolbar>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
