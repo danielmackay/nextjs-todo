@@ -1,11 +1,10 @@
 import { Button } from "@mui/material";
-import todos from "../../pages";
 import { useTodoItems, mutateTodoItems } from "../../services/swrService";
-import {Api} from "../../services/apiService";
+import { TodoApi } from "../../services/apiService";
 
 const TodoClear = () => {
   const { todoItems } = useTodoItems()
-  const api = new Api();
+  const api = new TodoApi();
 
   const onClearTodos = () => {
     if (!todoItems)
@@ -15,8 +14,8 @@ const TodoClear = () => {
 
     todoItems.forEach(t => {
       if (t.todoItemId) {
-        let promise = api.todoItems().apiTodoItemsTodoItemIdDelete(t.todoItemId);
-        promises.push(promise);
+        let promise = api.todoItems().todoItemsDelete(t.todoItemId);
+        promises.push(promise)
       }
     });
 
@@ -25,7 +24,7 @@ const TodoClear = () => {
 
   return (
     <>
-      <Button color="error" variant="contained" onClick={() => onClearTodos()} sx={{mt: 4}}>Clear</Button>
+      <Button color="error" variant="contained" onClick={() => onClearTodos()} sx={{ mt: 4 }}>Clear</Button>
     </>
   );
 }

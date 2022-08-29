@@ -3,20 +3,20 @@ import Grid from '@mui/material/Grid';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { mutateTodoItems } from '../../services/swrService';
-import { Api } from '../../services/apiService';
-import { CreateTodoItemCommand } from '../../apiClient';
+import { TodoApi } from '../../services/apiService';
+import { CreateTodoItemCommand } from '../../apiClient/data-contracts';
 
 const TodoAdd = () => {
   const [todoText, setTodoText] = useState("");
-  const api = new Api();
+  const api = new TodoApi();
 
   const onAddTodo = () => {
     let cmd: CreateTodoItemCommand = {
       title: todoText
     }
 
-    api.todoItems().apiTodoItemsPost(cmd)
-      .then(res => {
+    api.todoItems().todoItemsCreate(cmd)
+      .then(data => {
         setTodoText("");
         mutateTodoItems();
       });

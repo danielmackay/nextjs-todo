@@ -1,13 +1,10 @@
-import { Configuration, TodoItemsApi } from "../apiClient"
+import { HttpClient } from "../apiClient/http-client";
+import { TodoItems } from "../apiClient/TodoItems";
 
-export class Api {
-  private configuration: Configuration;
+export class TodoApi {
+  private client = new HttpClient({
+    baseUrl: "https://localhost:7110",
+  });
 
-  constructor() {
-    this.configuration = new Configuration({basePath: "https://localhost:7110"});
-  }
-
-  public todoItems(): TodoItemsApi {
-    return new TodoItemsApi(this.configuration);
-  }
+  public todoItems = () => new TodoItems(this.client);
 }

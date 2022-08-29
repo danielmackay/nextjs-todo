@@ -1,9 +1,9 @@
 import { Checkbox, IconButton, Paper, Skeleton, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TodoItemDto } from "../../apiClient";
 import { mutateTodoItems, useTodoItems } from "../../services/swrService";
 import Notification from '../../components/notification';
-import { Api } from '../../services/apiService';
+import { TodoApi } from '../../services/apiService';
+import { TodoItemDto } from "../../apiClient/data-contracts";
 
 const NoTodoItems = () => <Typography variant="body1" sx={{ mt: 1 }}>No Todos</Typography>;
 
@@ -11,22 +11,22 @@ const Loading = () => <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
 
 const TodoList = () => {
   const { todoItems, isLoading, isError } = useTodoItems()
-  const api = new Api();
+  const api = new TodoApi();
 
   const onDeleteTodo = (deleted: TodoItemDto) => {
     if (!deleted || !deleted.todoItemId)
       return;
 
-    api.todoItems().apiTodoItemsTodoItemIdDelete(deleted.todoItemId)
-      .then(res => mutateTodoItems());
+    api.todoItems().todoItemsDelete(deleted.todoItemId)
+      .then(data => mutateTodoItems());
   }
 
   const onCompleteTodo = (updated: TodoItemDto) => {
     if (!updated?.todoItemId)
         return;
 
-    api.todoItems().apiTodoItemsTodoItemIdPut(updated.todoItemId, { done: !updated.done })
-      .then(res => mutateTodoItems());
+    api.todoItems().todoItemsUpdate(updated.todoItemId, { done: !updated.done })
+      .then(data => mutateTodoItems());
   }
 
   const getTextDecoration = (todo:TodoItemDto) => todo.done ? 'line-through' : '';
