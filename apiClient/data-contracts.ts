@@ -13,18 +13,20 @@ export interface CreateTodoItemCommand {
   title?: string | null;
 }
 
-export interface TodoItemDto {
+/**
+ * @format int32
+ */
+export type Priority = 1 | 2 | 3;
+
+export interface TodoItemBriefDto {
   /** @format int32 */
   todoItemId?: number;
-
-  /** @format int32 */
-  todoListId?: number | null;
   title?: string | null;
   done?: boolean;
 }
 
-export interface TodoItemDtoPaginatedList {
-  items?: TodoItemDto[] | null;
+export interface TodoItemBriefDtoPaginatedList {
+  items?: TodoItemBriefDto[] | null;
 
   /** @format int32 */
   pageNumber?: number;
@@ -36,6 +38,18 @@ export interface TodoItemDtoPaginatedList {
   totalCount?: number;
   hasPreviousPage?: boolean;
   hasNextPage?: boolean;
+}
+
+export interface TodoItemDto {
+  /** @format int32 */
+  todoItemId?: number;
+  title?: string | null;
+  note?: string | null;
+  done?: boolean;
+  priority?: Priority;
+
+  /** @format date-time */
+  dueDate?: string | null;
 }
 
 export interface UpdateTodoItemCommand {

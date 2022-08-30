@@ -9,7 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { CreateTodoItemCommand, TodoItemDtoPaginatedList, UpdateTodoItemCommand } from "./data-contracts";
+import {
+  CreateTodoItemCommand,
+  TodoItemBriefDtoPaginatedList,
+  TodoItemDto,
+  UpdateTodoItemCommand,
+} from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class TodoItems<SecurityDataType = unknown> {
@@ -25,10 +30,10 @@ export class TodoItems<SecurityDataType = unknown> {
    * @tags TodoItems
    * @name TodoItemsList
    * @request GET:/api/todo-items
-   * @response `200` `TodoItemDtoPaginatedList` Success
+   * @response `200` `TodoItemBriefDtoPaginatedList` Success
    */
   todoItemsList = (query?: { PageNumber?: number; PageSize?: number }, params: RequestParams = {}) =>
-    this.http.request<TodoItemDtoPaginatedList, any>({
+    this.http.request<TodoItemBriefDtoPaginatedList, any>({
       path: `/api/todo-items`,
       method: "GET",
       query: query,
@@ -80,6 +85,21 @@ export class TodoItems<SecurityDataType = unknown> {
     this.http.request<void, any>({
       path: `/api/todo-items/${todoItemId}`,
       method: "DELETE",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags TodoItems
+   * @name TodoItemsDetail
+   * @request GET:/api/todo-items/{todoItemId}
+   * @response `200` `TodoItemDto` Success
+   */
+  todoItemsDetail = (todoItemId: number, params: RequestParams = {}) =>
+    this.http.request<TodoItemDto, any>({
+      path: `/api/todo-items/${todoItemId}`,
+      method: "GET",
+      format: "json",
       ...params,
     });
 }
