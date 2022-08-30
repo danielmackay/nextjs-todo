@@ -37,8 +37,8 @@ const TodoDetails = (props: ITodoDetailsProps) => {
         <Paper sx={{ p: 1 }}>
           <Checkbox disabled={true} {...label} defaultChecked sx={{ mb: 1 }} /><Typography variant='body1' sx={{ display: "inline-block" }}>Done</Typography>
           <TextField disabled={true} id="outlined-basic" label="Title" variant="outlined" fullWidth={true} sx={{ mb: 2 }} value={todoItem.title} />
-          <TextField disabled={true} id="outlined-basic" label="Note" variant="outlined" multiline rows={5} fullWidth={true} sx={{ mb: 2 }} value={todoItem.note} />
-          <DatePicker disabled={true} className="mb-2" label="Due Date" value={todoItem.dueDate} onChange={(newValue) => {setValue(newValue);}} renderInput={(params) => <TextField disabled={true} fullWidth={true} sx={{mb: 2}} {...params} />} />
+          <TextField disabled={true} id="outlined-basic" label="Note" variant="outlined" multiline rows={5} fullWidth={true} sx={{ mb: 2 }} value={todoItem.note || ''} />
+          <DatePicker disabled={true} className="mb-2" label="Due Date" value={todoItem.dueDate || ''} onChange={(newValue) => {setValue(newValue);}} renderInput={(params) => <TextField disabled={true} fullWidth={true} sx={{mb: 2}} {...params} />} />
           <TextField disabled={true} id="outlined-basic" label="Priority" variant="outlined" fullWidth={true} sx={{ mb: 0 }} value={todoItem.priority} />
         </Paper>
         : <Invalid />
