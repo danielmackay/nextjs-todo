@@ -56,5 +56,8 @@ export interface UpdateTodoItemCommand {
   title?: string | null;
   note?: string | null;
   done?: boolean | null;
+
+  /** @format date-time */
+  dueDate?: string | null;
   priority?: Priority;
 }
