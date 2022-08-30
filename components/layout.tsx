@@ -1,7 +1,6 @@
 import Footer from './footer';
 import AppBarSimple from './appBarSimple';
-import React, { useState } from 'react';
-import deepPurple from '@mui/material/colors/deepPurple';
+import React  from 'react';
 import { Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers';
