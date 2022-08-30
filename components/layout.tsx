@@ -1,21 +1,14 @@
-//import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-
 import Footer from './footer';
 import AppBarSimple from './appBarSimple';
 import React, { useState } from 'react';
-//import AppBar from './components/AppBar';
 import deepPurple from '@mui/material/colors/deepPurple';
 import { Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { truncate } from 'fs';
-//import { createTheme } from '@mui/material/styles';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 
 export default function Layout({ children }: any) {
-  const [darkMode, setDarkMode] = useState(true);
-
   const theme = createTheme({
-    palette: {      
+    palette: {
       primary: {
         main: '#776be7'
       },
@@ -29,25 +22,22 @@ export default function Layout({ children }: any) {
       error: {
         main: '#f64e62'
       },
-      mode: darkMode ? 'dark' : 'light'
+      mode: 'dark'
     },
 
   });
 
-  const handleToggleDarkMode = (darkModeValue: boolean) => {
-    setDarkMode(darkModeValue);
-  }
-
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppBarSimple />
-        {/* <AppBar darkMode={darkMode} toggleDarkMode={handleToggleDarkMode} /> */}
-        <Container maxWidth="md" sx={{my: 16}}>
-          <main>{children}</main>
-        </Container>
-        <Footer />
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <CssBaseline />
+          <AppBarSimple />
+          <Container maxWidth="md" sx={{ my: 16 }}>
+            <main>{children}</main>
+          </Container>
+          <Footer />
+        </LocalizationProvider>
       </ThemeProvider>
 
     </>

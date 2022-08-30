@@ -3,6 +3,7 @@ import { useTodoItemDetails } from "../../services/swrService";
 import Loading from "../loading";
 import Notification from '../../components/notification';
 import Checkbox from '@mui/material/Checkbox';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 interface ITodoDetailsProps {
   todoItemId: number;
@@ -14,6 +15,8 @@ const label = { inputProps: { 'aria-label': 'Done' } };
 
 const TodoDetails = (props: ITodoDetailsProps) => {
   const { todoItem, isLoading, isError } = useTodoItemDetails(props.todoItemId)
+
+  const setValue = (value: any) => {}
 
   if (isLoading)
     return <Loading />
@@ -32,11 +35,11 @@ const TodoDetails = (props: ITodoDetailsProps) => {
       {todoItem
         ?
         <Paper sx={{ p: 1 }}>
-          <Checkbox {...label} defaultChecked sx={{ mb: 1 }} /><Typography variant='body1' sx={{ display: "inline-block" }}>Done</Typography>
-          <TextField id="outlined-basic" label="Title" variant="outlined" fullWidth={true} sx={{ mb: 2 }} value={todoItem.title} />
-          <TextField id="outlined-basic" label="Note" variant="outlined" multiline rows={5} fullWidth={true} sx={{ mb: 2 }} value={todoItem.note} />
-          <TextField id="outlined-basic" label="Due Date" variant="outlined" fullWidth={true} sx={{ mb: 2 }} value={todoItem.dueDate} />
-          <TextField id="outlined-basic" label="Priority" variant="outlined" fullWidth={true} sx={{ mb: 0 }} value={todoItem.priority} />
+          <Checkbox disabled={true} {...label} defaultChecked sx={{ mb: 1 }} /><Typography variant='body1' sx={{ display: "inline-block" }}>Done</Typography>
+          <TextField disabled={true} id="outlined-basic" label="Title" variant="outlined" fullWidth={true} sx={{ mb: 2 }} value={todoItem.title} />
+          <TextField disabled={true} id="outlined-basic" label="Note" variant="outlined" multiline rows={5} fullWidth={true} sx={{ mb: 2 }} value={todoItem.note} />
+          <DatePicker disabled={true} className="mb-2" label="Due Date" value={todoItem.dueDate} onChange={(newValue) => {setValue(newValue);}} renderInput={(params) => <TextField disabled={true} fullWidth={true} sx={{mb: 2}} {...params} />} />
+          <TextField disabled={true} id="outlined-basic" label="Priority" variant="outlined" fullWidth={true} sx={{ mb: 0 }} value={todoItem.priority} />
         </Paper>
         : <Invalid />
       }

@@ -10,10 +10,14 @@
     "generate-api": "swagger-typescript-api -r --unwrap-response-data --single-http-client --modular --module-name-index=1 --disableStrictSSL -p https://127.0.0.1:7110/swagger/v1/swagger.json -o ./apiClient"
   },
   "dependencies": {
+    "@date-io/jalaali": "^2.15.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/icons-material": "^5.10.2",
     "@mui/material": "^5.10.2",
+    "@mui/x-date-pickers": "^5.0.0-beta.7",
+    "moment": "^2.29.4",
+    "moment-jalaali": "^0.9.6",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
