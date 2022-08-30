@@ -53,5 +53,8 @@ export interface TodoItemDto {
 }
 
 export interface UpdateTodoItemCommand {
-  done?: boolean;
+  title?: string | null;
+  note?: string | null;
+  done?: boolean | null;
+  priority?: Priority;
 }

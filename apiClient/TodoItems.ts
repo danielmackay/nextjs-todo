@@ -61,14 +61,29 @@ export class TodoItems<SecurityDataType = unknown> {
    * No description
    *
    * @tags TodoItems
-   * @name TodoItemsUpdate
-   * @request PUT:/api/todo-items/{todoItemId}
+   * @name TodoItemsDetail
+   * @request GET:/api/todo-items/{todoItemId}
+   * @response `200` `TodoItemDto` Success
+   */
+  todoItemsDetail = (todoItemId: number, params: RequestParams = {}) =>
+    this.http.request<TodoItemDto, any>({
+      path: `/api/todo-items/${todoItemId}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags TodoItems
+   * @name TodoItemsPartialUpdate
+   * @request PATCH:/api/todo-items/{todoItemId}
    * @response `200` `void` Success
    */
-  todoItemsUpdate = (todoItemId: number, data: UpdateTodoItemCommand, params: RequestParams = {}) =>
+  todoItemsPartialUpdate = (todoItemId: number, data: UpdateTodoItemCommand, params: RequestParams = {}) =>
     this.http.request<void, any>({
       path: `/api/todo-items/${todoItemId}`,
-      method: "PUT",
+      method: "PATCH",
       body: data,
       type: ContentType.Json,
       ...params,
@@ -85,21 +100,6 @@ export class TodoItems<SecurityDataType = unknown> {
     this.http.request<void, any>({
       path: `/api/todo-items/${todoItemId}`,
       method: "DELETE",
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags TodoItems
-   * @name TodoItemsDetail
-   * @request GET:/api/todo-items/{todoItemId}
-   * @response `200` `TodoItemDto` Success
-   */
-  todoItemsDetail = (todoItemId: number, params: RequestParams = {}) =>
-    this.http.request<TodoItemDto, any>({
-      path: `/api/todo-items/${todoItemId}`,
-      method: "GET",
-      format: "json",
       ...params,
     });
 }
