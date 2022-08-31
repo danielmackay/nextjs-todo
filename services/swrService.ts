@@ -1,4 +1,5 @@
 import useSWR, { mutate, useSWRConfig } from "swr";
+import { TodoItemDto } from "../apiClient/data-contracts";
 import { TodoApi } from "./apiService";
 
 const todoApiUrl: string = '/api/todo-items';
@@ -35,6 +36,15 @@ export const useTodoItemDetails = (todoItemId: number) => {
   }
 }
 
-export const mutateTodoItemDetails = (todoItemId: number) => {
-  todoApiDetailsUrl(todoItemId);
+// export const mutateTodoItemDetails = (todoItemId: number) => {
+//   todoApiDetailsUrl(todoItemId);
+// }
+
+export const mutateTodoItemDetails = (todoItemId: number, todoItem?: TodoItemDto) => {
+  let url = todoApiDetailsUrl(todoItemId);
+  
+  if (todoItem)
+    mutate(url, todoItem, false);
+  else
+    mutate(url); 
 }
